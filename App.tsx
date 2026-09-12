@@ -28,26 +28,32 @@ export default function App() {
   );
 } */
 
-  import React from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
-import DestinoProviders from './Providers/DestinosProviders'; 
-import ExplorarDestinos from './Pages/Destinos/ExplorarDestinos'; 
+import DestinoProviders from './Providers/DestinosProviders';
+import PaquetesProviders from './Providers/PaquetesProviders';
+import ExplorarDestinos from './Pages/Destinos/ExplorarDestinos';
+import ExplorarPaquetes from './Pages/Paquetes/ExplorarPaquetes';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
     <DestinoProviders>
-      <NavigationContainer>
-        <Stack.Navigator screenOptions={{ headerShown: false }}>
-          
-          <Stack.Screen name="ExplorarDestinos" component={ExplorarDestinos} />
-          
-        </Stack.Navigator>
-      </NavigationContainer>
+      <PaquetesProviders>
+        <NavigationContainer>
+          <Stack.Navigator screenOptions={{ headerShown: false }}>
+
+            <Stack.Screen name="ExplorarDestinos" component={ExplorarDestinos} />
+            <Stack.Screen name='ExplorarPaquetes' component={ExplorarPaquetes} />
+
+          </Stack.Navigator>
+        </NavigationContainer>
+      </PaquetesProviders>
+
     </DestinoProviders>
   );
 }
