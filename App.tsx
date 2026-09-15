@@ -33,10 +33,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 
+
+
+
+
 import DestinoProviders from './Providers/DestinosProviders';
 import PaquetesProviders from './Providers/PaquetesProviders';
+import TransporteProviders from './Providers/TransporteProviders';
 import ExplorarDestinos from './Pages/Destinos/ExplorarDestinos';
 import ExplorarPaquetes from './Pages/Paquetes/ExplorarPaquetes';
+import ContratarTransporte from './Pages/Transporte/ContratarTransporte';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,14 +50,17 @@ export default function App() {
   return (
     <DestinoProviders>
       <PaquetesProviders>
-        <NavigationContainer>
-          <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <TransporteProviders>
+          <NavigationContainer>
+            <Stack.Navigator screenOptions={{ headerShown: false }}>
 
-            <Stack.Screen name="ExplorarDestinos" component={ExplorarDestinos} />
-            <Stack.Screen name='ExplorarPaquetes' component={ExplorarPaquetes} />
+              <Stack.Screen name="ExplorarDestinos" component={ExplorarDestinos} />
+              <Stack.Screen name='ExplorarPaquetes' component={ExplorarPaquetes} />
+              <Stack.Screen name='ContratarTransporte' component={ContratarTransporte} />
 
-          </Stack.Navigator>
-        </NavigationContainer>
+            </Stack.Navigator>
+          </NavigationContainer>
+        </TransporteProviders>
       </PaquetesProviders>
 
     </DestinoProviders>

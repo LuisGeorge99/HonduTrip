@@ -1,31 +1,30 @@
 import { View, Text, FlatList, TouchableOpacity, Image, Alert } from 'react-native'
 import React, { useState } from 'react'
-import { usePaquetes } from '../../Providers/PaquetesProviders';
+import { useTransporte } from '../../Providers/TransporteProviders';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-export default function ExplorarPaquetesPage() {
+export default function ContratarTransportePage() {
 
-    const { paquetes, seleccionarPaquete } = usePaquetes();
+    const { transportes, seleccionarTransporte } = useTransporte();
     const navigation = useNavigation<any>();
-    
-    const [tagSeleccionado, setTagSeleccionado] = useState('Todos');
-    const tagsDisponibles = ['Todos', 'Cancún', 'París', 'Tokio', 'Temporada'];
 
-    const filtrados = paquetes.filter(p => {
+    const [tagSeleccionado, setTagSeleccionado] = useState('Todos');
+    const tagsDisponibles = ['Todos', 'Traslado Privado', 'Traslado Compartido', 'Auto Rentado', 'Vuelo'];
+
+    const filtrados = transportes.filter(t => {
         if (tagSeleccionado === 'Todos') return true;
-        return p.nombre.toLowerCase().includes(tagSeleccionado.toLowerCase());
+        return t.tipo === tagSeleccionado;
     });
 
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#f5f5f5' }}>
-            
+
             <View style={{ paddingHorizontal: 15, paddingTop: 15, paddingBottom: 5 }}>
                 <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 12 }}>
-                    Explora Combos y Hospedajes
+                    Contrata tu Transporte
                 </Text>
-                
-                {/* 🟢 NUEVO: Contenedor horizontal para tus botones/tags */}
+
                 <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 5 }}>
                     {tagsDisponibles.map((tag) => {
                         const esActivo = tagSeleccionado === tag;
@@ -34,17 +33,17 @@ export default function ExplorarPaquetesPage() {
                             <TouchableOpacity
                                 key={tag}
                                 style={{
-                                    backgroundColor: esActivo ? '#2e7d32' : '#e0e0e0',
+                                    backgroundColor: esActivo ? '#e65100' : '#e0e0e0',
                                     paddingHorizontal: 14,
                                     paddingVertical: 8,
                                     borderRadius: 20,
                                 }}
                                 onPress={() => setTagSeleccionado(tag)}
                             >
-                                <Text style={{ 
-                                    color: esActivo ? '#fff' : '#333', 
+                                <Text style={{
+                                    color: esActivo ? '#fff' : '#333',
                                     fontWeight: 'bold',
-                                    fontSize: 14 
+                                    fontSize: 14
                                 }}>
                                     {tag}
                                 </Text>
@@ -59,17 +58,17 @@ export default function ExplorarPaquetesPage() {
                 contentContainerStyle={{ paddingHorizontal: 15, paddingBottom: 30 }}
                 renderItem={({ item }) => (
 
-                    <View style={{ padding: 12, backgroundColor: '#efebe9', borderRadius: 6, marginBottom: 5 }}>
+                    <View style={{ padding: 12, backgroundColor: '#fff3e0', borderRadius: 6, marginBottom: 5 }}>
                         <Image
                             source={{ uri: item.imagen }}
                             style={{ width: '100%', height: 200, borderRadius: 6, marginBottom: 10 }}
                             resizeMode='cover'
                         />
                         <Text style={{ fontWeight: 'bold', fontSize: 16 }}>
-                            {item.nombre} — {item.estadia} Noches
+                            {item.nombre} — {item.tipo}
                         </Text>
 
-                        <Text style={{ color: '#2e7d32', fontWeight: 'bold', marginVertical: 2, fontSize: 15 }}>
+                        <Text style={{ color: '#e65100', fontWeight: 'bold', marginVertical: 2, fontSize: 15 }}>
                             Precio: {item.moneda} {item.precio.toLocaleString()}
                         </Text>
 
@@ -77,24 +76,18 @@ export default function ExplorarPaquetesPage() {
                             {item.descripcion}
                         </Text>
 
-                        <Text style={{ color: '#d84315', fontSize: 13, fontWeight: 'bold', marginTop: 4 }}>
-                            🎁 Incluido por estadía: {
-                                item.estadia <= 2 ? 'Maleta de mano gratis' :
-                                    item.estadia <= 4 ? 'Seguro médico + Traslado al hotel' :
-                                        'Tour guiado completo todo incluido'
-                            }
+                        <Text style={{ color: '#1565c0', fontSize: 13, fontWeight: 'bold', marginTop: 4 }}>
+                            👥 Capacidad: {item.capacidad} {item.capacidad === 1 ? 'persona' : 'personas'}
                         </Text>
 
                         <TouchableOpacity
-                            style={{ backgroundColor: '#2e7d32', padding: 8, borderRadius: 4, marginTop: 10, alignItems: 'center' }}
+                            style={{ backgroundColor: '#e65100', padding: 8, borderRadius: 4, marginTop: 10, alignItems: 'center' }}
                             onPress={() => {
-
-                                seleccionarPaquete(item);
-                                Alert.alert("Paquete Elegido", `${item.nombre} con estadia de ${item.estadia} noches`);
-                                navigation.navigate('ContratarTransporte');
+                                seleccionarTransporte(item);
+                                Alert.alert("Transporte Contratado", `${item.nombre} (${item.tipo})`);
                             }}
                         >
-                            <Text style={{ color: 'white', fontWeight: 'bold' }}>Seleccionar este paquete</Text>
+                            <Text style={{ color: 'white', fontWeight: 'bold' }}>Contratar este transporte</Text>
                         </TouchableOpacity>
                     </View>
                 )}
@@ -104,7 +97,7 @@ export default function ExplorarPaquetesPage() {
                 ListFooterComponentStyle={{ marginBottom: 30 }}
                 ListEmptyComponent={() => (
                     <Text style={{ textAlign: 'center', color: '#777', marginTop: 30 }}>
-                        Aun no hay paquetes para {tagSeleccionado}
+                        Aun no hay transporte para {tagSeleccionado}
                     </Text>
                 )}
             />
