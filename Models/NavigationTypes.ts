@@ -5,4 +5,7 @@ export type RootStackParamList = {
   Home: undefined;
   Profile: undefined;
   EditProfile: undefined;
+  ExplorarDestinos: undefined;
+  ExplorarPaquetes: undefined;
+  ContratarTransporte: undefined;
 };

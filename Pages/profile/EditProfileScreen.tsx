@@ -7,7 +7,7 @@ type Props = NativeStackScreenProps<RootStackParamList, 'EditProfile'>;
 
 export default function EditProfileScreen({ navigation }: Props) {
   const [name, setName] = useState<string>('David Funez');
-  const [email, setEmail] = useState<string>('david@example.com');
+  const [email, setEmail] = useState<string>('david@ceutec.hn');
 
   const handleSave = (): void => {
     // TODO: conectar con Services/authService cuando exista

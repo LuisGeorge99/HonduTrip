@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../Models/NavigationTypes';
 
@@ -9,10 +9,12 @@ export default function LoginScreen({ navigation }: Props) {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  const handleLogin = (): void => {
-    // TODO: conectar con Services/authService cuando exista
-    console.log('Login intento:', email, password);
-    navigation.navigate('Profile');
+    const handleLogin = (): void => {
+    if (email === 'david@ceutec.hn' && password === '123456') {
+      navigation.navigate('ExplorarDestinos');
+    } else {
+      Alert.alert('Credenciales incorrectas', 'Usa david@example.com / 123456');
+    }
   };
 
   return (
