@@ -9,6 +9,7 @@ import RegisterScreen from './Pages/auth/RegisterScreen';
 import ProfileScreen from './Pages/profile/ProfileScreen';
 import EditProfileScreen from './Pages/profile/EditProfileScreen';
 
+import AuthProvider from './Providers/AuthProviders';
 import DestinoProviders from './Providers/DestinosProviders';
 import PaquetesProviders from './Providers/PaquetesProviders';
 import TransporteProviders from './Providers/TransporteProviders';
@@ -20,27 +21,29 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function App() {
   return (
-    <DestinoProviders>
-      <PaquetesProviders>
-        <TransporteProviders>
-          <NavigationContainer>
-            <Stack.Navigator
-              initialRouteName="Welcome"
-              screenOptions={{ headerShown: false }}
-            >
-              <Stack.Screen name="Welcome" component={WelcomeScreen} />
-              <Stack.Screen name="Login" component={LoginScreen} />
-              <Stack.Screen name="Register" component={RegisterScreen} />
-              <Stack.Screen name="Profile" component={ProfileScreen} />
-              <Stack.Screen name="EditProfile" component={EditProfileScreen} />
+    <AuthProvider>
+      <DestinoProviders>
+        <PaquetesProviders>
+          <TransporteProviders>
+            <NavigationContainer>
+              <Stack.Navigator
+                initialRouteName="Welcome"
+                screenOptions={{ headerShown: false }}
+              >
+                <Stack.Screen name="Welcome" component={WelcomeScreen} />
+                <Stack.Screen name="Login" component={LoginScreen} />
+                <Stack.Screen name="Register" component={RegisterScreen} />
+                <Stack.Screen name="Profile" component={ProfileScreen} />
+                <Stack.Screen name="EditProfile" component={EditProfileScreen} />
 
-              <Stack.Screen name="ExplorarDestinos" component={ExplorarDestinos} />
-              <Stack.Screen name="ExplorarPaquetes" component={ExplorarPaquetes} />
-              <Stack.Screen name="ContratarTransporte" component={ContratarTransporte} />
-            </Stack.Navigator>
-          </NavigationContainer>
-        </TransporteProviders>
-      </PaquetesProviders>
-    </DestinoProviders>
+                <Stack.Screen name="ExplorarDestinos" component={ExplorarDestinos} />
+                <Stack.Screen name="ExplorarPaquetes" component={ExplorarPaquetes} />
+                <Stack.Screen name="ContratarTransporte" component={ContratarTransporte} />
+              </Stack.Navigator>
+            </NavigationContainer>
+          </TransporteProviders>
+        </PaquetesProviders>
+      </DestinoProviders>
+    </AuthProvider>
   );
 }
