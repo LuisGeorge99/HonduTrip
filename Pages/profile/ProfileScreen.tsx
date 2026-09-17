@@ -2,29 +2,36 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../Models/NavigationTypes';
-import type { User } from '../../Models/User';
+import { useAuth } from '../../Providers/AuthProviders';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Profile'>;
 
-const mockUser: User = {
-  id: '1',
-  name: 'David Funez',
-  email: 'david@ceutec.hn',
-};
-
 export default function ProfileScreen({ navigation }: Props) {
+  const { user, logout } = useAuth();
+
+  const handleLogout = async (): Promise<void> => {
+    await logout();
+    navigation.navigate('Welcome');
+  };
+
+  if (!user) {
+    // No debería pasar si se navega bien, pero por seguridad regresamos a Login.
+    navigation.navigate('Login');
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <Image
         source={
-          mockUser.avatarUrl
-            ? { uri: mockUser.avatarUrl }
+          user.avatarUrl
+            ? { uri: user.avatarUrl }
             : require('../../assets/logo-sinfondo.png')
         }
         style={styles.avatar}
       />
-      <Text style={styles.name}>{mockUser.name}</Text>
-      <Text style={styles.email}>{mockUser.email}</Text>
+      <Text style={styles.name}>{user.name}</Text>
+      <Text style={styles.email}>{user.email}</Text>
 
       <TouchableOpacity
         style={styles.primaryButton}
@@ -33,10 +40,7 @@ export default function ProfileScreen({ navigation }: Props) {
         <Text style={styles.primaryButtonText}>Editar perfil</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.secondaryButton}
-        onPress={() => navigation.navigate('Welcome')}
-      >
+      <TouchableOpacity style={styles.secondaryButton} onPress={handleLogout}>
         <Text style={styles.secondaryButtonText}>Cerrar sesión</Text>
       </TouchableOpacity>
     </View>
