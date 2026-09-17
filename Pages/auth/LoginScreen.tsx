@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, Image } from 'react-native';
 import type { NativeStackScreenProps } from '@react-navigation/native-stack';
 import type { RootStackParamList } from '../../Models/NavigationTypes';
 import { useAuth } from '../../Providers/AuthProviders';
@@ -20,7 +20,7 @@ export default function LoginScreen({ navigation }: Props) {
     setIsSubmitting(true);
     try {
       await login(email, password);
-      navigation.navigate('Profile');
+      navigation.navigate('ExplorarDestinos');
     } catch (err) {
       const message = err instanceof Error ? err.message : 'No se pudo iniciar sesión.';
       Alert.alert('No se pudo iniciar sesión', message);
@@ -31,6 +31,11 @@ export default function LoginScreen({ navigation }: Props) {
 
   return (
     <View style={styles.container}>
+      <Image
+        source={require('../../assets/logo-sinfondo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
       <Text style={styles.title}>Iniciar sesión</Text>
 
       <TextInput
@@ -72,6 +77,7 @@ export default function LoginScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: 'center', padding: 24, backgroundColor: '#fff' },
+  logo: { width: 340, height: 340, alignSelf: 'center', marginBottom: 8 },
   title: { fontSize: 24, fontWeight: '700', color: '#1E5C8A', marginBottom: 32, textAlign: 'center' },
   input: {
     borderWidth: 1,
