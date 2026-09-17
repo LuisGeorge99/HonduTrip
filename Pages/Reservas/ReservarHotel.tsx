@@ -57,7 +57,7 @@ export default function ReservarHotel({ navigation }: Props) {
         Alert.alert(
             'Reserva confirmada',
             `${hotel} está listo para tu viaje${paqueteSeleccionado ? ` a ${paqueteSeleccionado.nombre}` : ''}.\nHabitación: ${habitacion}\nDuración: ${diasEstadia} ${diasEstadia === 1 ? 'día' : 'días'}${fechaSalida ? `\nSalida: ${fechaSalida}` : ''}`,
-            [{ text: 'Aceptar', onPress: () => navigation.navigate('ExplorarPaquetes') }],
+            [{ text: 'Aceptar', onPress: () => navigation.navigate('ContratarTransporte') }],
         );
     };
 
