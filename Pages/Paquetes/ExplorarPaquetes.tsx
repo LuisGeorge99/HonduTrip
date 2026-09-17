@@ -1,4 +1,4 @@
-import { View, Text, FlatList, TouchableOpacity, Image, Alert } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native'
 import React, { useState } from 'react'
 import { usePaquetes } from '../../Providers/PaquetesProviders';
 import { useNavigation } from '@react-navigation/native';
@@ -90,8 +90,7 @@ export default function ExplorarPaquetesPage() {
                             onPress={() => {
 
                                 seleccionarPaquete(item);
-                                Alert.alert("Paquete Elegido", `${item.nombre} con estadia de ${item.estadia} noches`);
-                                navigation.navigate('ContratarTransporte');
+                                navigation.navigate('ReservarPaquete');
                             }}
                         >
                             <Text style={{ color: 'white', fontWeight: 'bold' }}>Seleccionar este paquete</Text>

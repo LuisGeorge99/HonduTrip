@@ -8,4 +8,6 @@ export type RootStackParamList = {
   ExplorarDestinos: undefined;
   ExplorarPaquetes: undefined;
   ContratarTransporte: undefined;
+  ReservarPaquete: undefined;
+  ReservarHotel: undefined;
 };
