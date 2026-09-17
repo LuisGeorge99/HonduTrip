@@ -54,11 +54,7 @@ export default function ReservarHotel({ navigation }: Props) {
             return;
         }
 
-        Alert.alert(
-            'Reserva confirmada',
-            `${hotel} está listo para tu viaje${paqueteSeleccionado ? ` a ${paqueteSeleccionado.nombre}` : ''}.\nHabitación: ${habitacion}\nDuración: ${diasEstadia} ${diasEstadia === 1 ? 'día' : 'días'}${fechaSalida ? `\nSalida: ${fechaSalida}` : ''}`,
-            [{ text: 'Aceptar', onPress: () => navigation.navigate('ContratarTransporte') }],
-        );
+        navigation.navigate('ContratarTransporte');
     };
 
     return (
@@ -137,7 +133,7 @@ export default function ReservarHotel({ navigation }: Props) {
                 </Text>
 
                 <TouchableOpacity style={styles.primaryButton} onPress={confirmarReserva}>
-                    <Text style={styles.buttonText}>Confirmar reserva</Text>
+                    <Text style={styles.buttonText}>Continuar con el transporte</Text>
                 </TouchableOpacity>
             </ScrollView>
         </SafeAreaView>
@@ -169,4 +165,3 @@ const styles = {
     primaryButton: { backgroundColor: '#1E5C8A', padding: 13, borderRadius: 6, alignItems: 'center' as const, marginTop: 10 },
     buttonText: { color: '#fff', fontWeight: 'bold' as const, fontSize: 16 },
 };
-
